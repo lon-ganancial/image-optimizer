@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Image Optimizer · LonGanancial</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="shell topbar">
+      <a class="brand" href="https://longanancial.com/" title="LonGanancial">
+        <span class="mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="8.7" cy="9.5" r="1.3"/><path d="m4 16 5-5 3.4 3.2 2.2-2 5.5 5.3"/></svg></span>
+        Image Optimizer
+      </a>
+    </header>
+
+    <main class="shell stage">
+      <section id="emptyState" class="empty" aria-labelledby="heroTitle">
+        <div class="hero-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></div>
+        <h1 id="heroTitle">Optimize your images.</h1>
+        <p class="lede">Drop an image anywhere on this page, or choose a file to compare sizes and download the best format.</p>
+        <button class="primary-btn hero-btn" type="button" id="chooseButton"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-4 4 4-4 4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Choose an image</button>
+        <p class="hint">PNG, JPG, WebP, AVIF and other browser-supported images</p>
+        <div class="privacy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Your image stays on your device</div>
+      </section>
+
+      <section id="workState" class="workspace" hidden aria-labelledby="workTitle">
+        <div class="work-heading">
+          <div><h1 id="workTitle">Compare your image</h1><p id="fileDetails">—</p></div>
+          <button class="secondary-btn" id="replaceButton" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>New image</button>
+        </div>
+        <div id="sliderCompare" class="slider-compare" aria-label="Overlay image comparison">
+          <div id="sliderViewport" class="slider-viewport pan-viewport" aria-label="Image comparison preview. Drag to pan when zoomed in.">
+            <div class="pan-scene"><img id="sliderOptimizedImage" alt="Optimized image" hidden></div>
+            <div class="slider-reveal" id="sliderReveal"><div class="pan-scene"><img id="sliderOriginalImage" alt="Original image"></div></div>
+            <span class="slider-tag left">Original</span><span class="slider-tag right">Optimized</span>
+            <span class="split-line" aria-hidden="true"></span>
+            <div id="splitGrip" class="split-grip" role="slider" tabindex="0" aria-label="Image comparison divider" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% original image visible"><span class="grip-knob" aria-hidden="true"></span><span class="grip-tooltip" aria-hidden="true">Drag to compare</span></div>
+            <div id="sliderWait" class="preview-wait" style="position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;">Optimizing…</div>
+          </div>
+          <div class="slider-foot" aria-live="polite">
+            <div><strong id="sliderOriginalSize">—</strong><span class="size-note"> · Original</span></div>
+            <div id="sliderFootControlsMount" class="footer-controls-mount">
+              <div class="compare-controls" id="compareControls">
+                <div class="mode-switch" role="group" aria-label="Comparison mode">
+                  <button type="button" id="sliderMode" class="active" aria-pressed="true">Slider</button>
+                  <button type="button" id="sideMode" aria-pressed="false">Side by side</button>
+                </div>
+                <div class="zoom-tools" role="group" aria-label="Preview zoom">
+                  <button type="button" id="zoomOut" aria-label="Zoom out" disabled>−</button>
+                  <span class="zoom-level" id="zoomLevel" aria-live="polite">100%</span>
+                  <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
+                  <button type="button" id="zoomFit" class="fit-btn" aria-label="Reset zoom and position">Fit</button>
+                </div>
+              </div>
+            </div>
+            <div class="right opt-stats"><strong id="sliderOptimizedSize">—</strong><span id="sliderSaving" class="saving">—</span><button type="button" class="opt-chevron" id="sliderOptToggle" aria-label="View optimization settings" aria-controls="optimizationPopover" aria-expanded="false" title="Optimization settings" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button></div>
+          </div>
+          <div id="sliderLoading" class="mini-progress" role="status" aria-live="polite" hidden><span class="mini-progress-label">Generating preview…</span><div class="mini-progress-track" aria-hidden="true"><div class="mini-progress-bar"></div></div></div>
+        </div>
+        <div id="sideCompare" class="compare" aria-live="polite" hidden>
+          <article class="image-card">
+            <div class="image-head"><strong>Original</strong><span>Source image</span></div>
+            <div class="image-well"><div class="side-viewport pan-viewport"><div class="pan-scene"><img id="originalImage" alt="Original image preview"></div></div></div>
+            <div class="image-foot"><strong class="file-size" id="originalSize">—</strong><span class="size-note" id="originalType">—</span></div>
+          </article>
+          <article class="image-card">
+            <div class="image-head"><strong>Optimized</strong><span id="optimizedLabel">Select a format</span></div>
+            <div class="image-well"><div class="side-viewport pan-viewport"><div class="pan-scene"><img id="optimizedImage" alt="Optimized image preview" hidden></div><div id="previewWait" class="preview-wait" style="position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;"><span class="spinner"></span>Optimizing…</div></div></div>
+            <div class="image-foot"><strong class="file-size" id="optimizedSize">—</strong><div class="opt-stats"><span class="saving" id="optimizedSaving">—</span><button type="button" class="opt-chevron" id="sideOptToggle" aria-label="View optimization settings" aria-controls="optimizationPopover" aria-expanded="false" title="Optimization settings" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button></div></div>
+            <div id="sideLoading" class="mini-progress" role="status" aria-live="polite" hidden><span class="mini-progress-label">Generating preview…</span><div class="mini-progress-track" aria-hidden="true"><div class="mini-progress-bar"></div></div></div>
+          </article>
+        </div>
+        <div class="side-controls-mount" id="sideControlsMount" hidden></div>
+        <div class="export-bar" aria-label="Image export options">
+          <div class="format-picker" role="group" aria-labelledby="formatsTitle">
+            <span class="picker-title" id="formatsTitle">Download as</span>
+            <span class="visually-hidden" id="formatStatus" role="status">Preparing optimized images…</span>
+            <div class="formats" id="formatList">
+              <button class="format" type="button" data-format="webp" aria-pressed="false" disabled><span class="format-top"><b>WebP</b><svg class="tick" hidden width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 4 4L19 6"/></svg></span><span class="format-bottom"><strong class="fmt-size">—</strong><span class="fmt-saving small-muted">Processing…</span></span></button>
+              <button class="format" type="button" data-format="avif" aria-pressed="false" disabled><span class="format-top"><b>AVIF</b><svg class="tick" hidden width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 4 4L19 6"/></svg></span><span class="format-bottom"><strong class="fmt-size">—</strong><span class="fmt-saving small-muted">Processing…</span></span></button>
+              <button class="format" type="button" data-format="jpeg" aria-pressed="false" disabled><span class="format-top"><b>JPG</b><svg class="tick" hidden width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 4 4L19 6"/></svg></span><span class="format-bottom"><strong class="fmt-size">—</strong><span class="fmt-saving small-muted">Processing…</span></span></button>
+              <button class="format" type="button" data-format="png" aria-pressed="false" disabled><span class="format-top"><b>PNG</b><svg class="tick" hidden width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 4 4L19 6"/></svg></span><span class="format-bottom"><strong class="fmt-size">—</strong><span class="fmt-saving small-muted">Processing…</span></span></button>
+            </div>
+          </div>
+          <button class="primary-btn download-btn" type="button" id="downloadButton" disabled><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/></svg><span id="downloadText">Preparing…</span></button>
+        </div>
+      </section>
+    </main>
+    <footer class="shell footer">by <a href="https://longanancial.com/" target="_blank" rel="noopener noreferrer">LonGanancial</a></footer>
+  </div>
+
+  <div class="drop-overlay" id="dropOverlay" hidden aria-hidden="true"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="9" r="1.5"/><path d="m3 17 5-5 4 4 3-3 6 5"/></svg><strong>Drop your image anywhere</strong><span>Release to compare image formats</span></div>
+  <div id="optimizationPopover" class="opt-popover" role="dialog" aria-labelledby="optimizationTitle" hidden>
+    <div class="opt-popover-head"><h2 id="optimizationTitle">Optimizations applied</h2><span id="optimizationStatus" class="opt-popover-status" role="status">WebP</span></div>
+    <p class="opt-intro">Uncheck an adjustment to preserve more of the original. File size updates when the new preview is ready.</p>
+    <div id="mainOptimizationList" class="codec-checklist"></div>
+    <button type="button" id="advancedToggle" class="codec-advanced-trigger" aria-controls="advancedOptions" aria-expanded="false">Advanced <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+    <div id="advancedOptions" class="codec-checklist" hidden></div>
+    <div id="codecInfo" class="codec-info" aria-live="polite"></div>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <input id="fileInput" type="file" accept="image/*,.avif,.heic,.heif" hidden>
+
+<script src="js/optimizer.js" defer></script>
+<script src="js/comparison.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

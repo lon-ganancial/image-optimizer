@@ -1,0 +1,7 @@
+# Public release repository. Private source lives separately.
+/*
+!/dist/
+!/dist/**
+!/README.md
+!/.gitignore
+!/.gitattributes

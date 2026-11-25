@@ -1,0 +1,7 @@
+* text=auto
+*.bat text eol=crlf
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.wasm binary
+/dist/** linguist-vendored=false linguist-generated=false

@@ -1,0 +1,21 @@
+AVIF encoder notices and build provenance
+
+The local @jsquash/avif 2.1.1 encoder is distributed under Apache-2.0
+(see avif-LICENSE). Its avif_enc.wasm matches the binary at jSquash commit
+b7fa9ac9ec02f224847ad23d19d115f9e296a368, SHA-256
+ d9f2a95164362af48558d176e619becfd49dd97b50b86c679b47100860522b3d.
+
+The single-threaded encoder build recipe names:
+- libavif 1.0.1: avif-libavif-LICENSE
+- libaom 3.7.0: avif-libaom-LICENSE and avif-libaom-PATENTS
+- SharpYUV from libwebp commit e2c85878f6a33f29948b43d3492d9cdaf801aa54:
+  avif-libwebp-COPYING and avif-libwebp-PATENTS
+- Emscripten 3.1.57: avif-emscripten-LICENSE and
+  avif-emscripten-COPYRIGHT (musl libc)
+
+Build recipe:
+https://github.com/jamsinclair/jSquash/blob/b7fa9ac9ec02f224847ad23d19d115f9e296a368/packages/avif/codec/Makefile
+https://github.com/jamsinclair/jSquash/blob/b7fa9ac9ec02f224847ad23d19d115f9e296a368/packages/avif/codec/package.json
+
+The libwebp patent notice above is also identical to the notice at the
+libwebp commit used by @jsquash/webp 1.5.0 (d2e245ea9e959a5a79e1db0ed2085206947e98f2).
