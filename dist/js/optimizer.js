@@ -1,5 +1,17 @@
 
     'use strict';
+    const appRoot = document.getElementById('appRoot');
+    let appScale = 1;
+    function updateAppScale() {
+      appScale = Math.min(1, document.documentElement.clientWidth / 320);
+      appRoot.style.zoom = appScale < 1 ? String(appScale) : '';
+      appRoot.style.width = appScale < 1 ? '320px' : '';
+      const noticeHeight = document.querySelector('.viewport-notice').getBoundingClientRect().height;
+      document.querySelector('.page').style.minHeight = appScale < 1
+        ? `${Math.max(0, innerHeight-noticeHeight)/appScale}px` : '';
+    }
+    updateAppScale();
+    window.addEventListener('resize', updateAppScale);
     const $ = id => document.getElementById(id);
     const input = $('fileInput');
     const formatButtons = [...document.querySelectorAll('[data-format]')];

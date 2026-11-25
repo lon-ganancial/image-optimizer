@@ -158,8 +158,8 @@
       });
       view.addEventListener('pointermove', e => {
         if (!moving || !view.hasPointerCapture(e.pointerId)) return;
-        panX += (e.clientX - lastX) / view.clientWidth;
-        panY += (e.clientY - lastY) / view.clientHeight;
+        panX += (e.clientX - lastX) / view.getBoundingClientRect().width;
+        panY += (e.clientY - lastY) / view.getBoundingClientRect().height;
         lastX = e.clientX; lastY = e.clientY;
         renderView();
         targetPanX = panX; targetPanY = panY;

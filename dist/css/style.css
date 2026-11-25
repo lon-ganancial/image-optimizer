@@ -208,3 +208,42 @@
     #advancedOptions:not([hidden]) { padding-left: 14px; border-left: 2px solid #e5eaf4; }
     .codec-info { color: var(--mute); font-size: 10.5px; line-height: 1.5; padding-top: 10px; border-top: 1px solid #eef1f5; }
   
+/* Compact comparison layout for narrow screens; the divider hitbox remains 62px. */
+@media (max-width: 540px) {
+  .shell { width: calc(100% - 28px); }
+  .topbar { min-height: 58px; }
+  .workspace { padding-top: 16px; }
+  .work-heading { gap: 8px; margin-bottom: 12px; align-items: flex-start; }
+  .work-heading > div { min-width: 0; flex: 1; }
+  .work-heading h1 { font-size: 19px; line-height: 1.2; margin-bottom: 4px; }
+  .work-heading p { font-size: 11px; line-height: 1.35; }
+  .secondary-btn { min-height: 40px; padding: 8px 9px; gap: 5px; }
+  .grip-knob { width: 32px; height: 32px; flex-basis: 32px; gap: 4px; }
+  .grip-knob::before, .grip-knob::after { border-top-width: 4px; border-bottom-width: 4px; }
+  .grip-knob::before { border-right-width: 4px; }
+  .grip-knob::after { border-left-width: 4px; }
+  .grip-tooltip { top: calc(50% + 25px); }
+  .slider-foot { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 4px 6px; padding: 6px 10px; }
+  .mode-switch button { min-height: 32px; }
+  .zoom-tools button { width: 32px; height: 34px; }
+  .slider-foot strong { font-size: 12px; white-space: nowrap; }
+  .file-size { font-size: 13px; white-space: nowrap; }
+  .slider-foot .saving { margin-left: 0; font-size: 10px; }
+  .slider-foot .opt-stats { gap: 2px; }
+  .slider-foot .opt-chevron { margin-right: 0; }
+  .saving, .size-note { white-space: nowrap; }
+  .image-head { padding: 10px 11px; min-height: 42px; }
+  .image-foot { padding: 9px 11px; gap: 2px; }
+  .image-foot .opt-stats { flex-wrap: nowrap; gap: 4px; }
+  .image-foot .opt-chevron { margin: -4px 0 -4px -3px; }
+  .side-controls-mount { padding-top: 8px; }
+  .format-bottom { flex-wrap: nowrap; gap: 4px; }
+  .format { padding-inline: 9px; }
+}
+
+
+.viewport-notice { display: none; }
+@media (max-width: 319px) {
+  .viewport-notice { display: block; margin: 0; padding: 7px 10px; text-align: center; color: #646c78; background: #eef0f3; font-size: 12px; line-height: 1.35; }
+  .opt-popover { width: 296px; }
+}

@@ -41,11 +41,15 @@
     }
     function positionPopover() {
       if (popover.hidden || !optAnchor) return;
-      const rect = optAnchor.getBoundingClientRect();
+      const box = optAnchor.getBoundingClientRect();
+      const rect = {top:box.top/appScale, bottom:box.bottom/appScale,
+        left:box.left/appScale, right:box.right/appScale, width:box.width/appScale};
+      const viewportWidth = innerWidth/appScale, viewportHeight = innerHeight/appScale;
+      popover.style.maxHeight = appScale < 1 ? `${Math.max(0, viewportHeight-24)}px` : '';
       const width = popover.offsetWidth, height = popover.offsetHeight;
-      const left = Math.max(12, Math.min(innerWidth-width-12, rect.right-width+7));
-      const above = rect.top >= height+22 || rect.top > innerHeight-rect.bottom;
-      const top = above ? Math.max(12,rect.top-height-10) : Math.min(innerHeight-height-12,rect.bottom+10);
+      const left = Math.max(12, Math.min(viewportWidth-width-12, rect.right-width+7));
+      const above = rect.top >= height+22 || rect.top > viewportHeight-rect.bottom;
+      const top = above ? Math.max(12,rect.top-height-10) : Math.min(viewportHeight-height-12,rect.bottom+10);
       popover.classList.toggle('above', above);
       popover.style.left = `${left}px`;
       popover.style.top = `${top}px`;
