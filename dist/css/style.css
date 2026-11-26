@@ -242,8 +242,6 @@
 }
 
 
-.viewport-notice { display: none; }
 @media (max-width: 319px) {
-  .viewport-notice { display: block; margin: 0; padding: 7px 10px; text-align: center; color: #646c78; background: #eef0f3; font-size: 12px; line-height: 1.35; }
   .opt-popover { width: 296px; }
 }

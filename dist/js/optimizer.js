@@ -6,9 +6,8 @@
       appScale = Math.min(1, document.documentElement.clientWidth / 320);
       appRoot.style.zoom = appScale < 1 ? String(appScale) : '';
       appRoot.style.width = appScale < 1 ? '320px' : '';
-      const noticeHeight = document.querySelector('.viewport-notice').getBoundingClientRect().height;
       document.querySelector('.page').style.minHeight = appScale < 1
-        ? `${Math.max(0, innerHeight-noticeHeight)/appScale}px` : '';
+        ? `${innerHeight/appScale}px` : '';
     }
     updateAppScale();
     window.addEventListener('resize', updateAppScale);
@@ -26,7 +25,7 @@
     const workerSlots = new Map();
     let workerTaskId = 0;
     function createCodecWorker(slot) {
-      const worker = new Worker('js/codec.worker.js', {type:'module'});
+      const worker = new Worker('js/codec.worker.js?v=20261125-2', {type:'module'});
       const pending = new Map();
       const state = {worker, pending};
       worker.onmessage = ({data}) => {
